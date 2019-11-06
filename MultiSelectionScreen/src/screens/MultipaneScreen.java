@@ -84,7 +84,19 @@ public class MultipaneScreen extends JFrame {
 		JMenu menuHelp = new JMenu("Ajuda");
 		JMenuItem developerOption = new JMenuItem("Desenvolvedores");
 		JMenuItem gitRepositoryOption = new JMenuItem("Repositório do Github");
+		gitRepositoryOption.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, "Programinha de conversão de valores");
+			}
+		});
 		JMenuItem aboutOption = new JMenuItem("Sobre");
+		aboutOption.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				JOptionPane.showMessageDialog(null, "Programinha de conversão de valores");
+			}
+		});
 		
 		menuHelp.add(developerOption);
 		menuHelp.add(gitRepositoryOption);
