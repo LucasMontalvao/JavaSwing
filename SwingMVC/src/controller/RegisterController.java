@@ -6,6 +6,9 @@ import model.RegisterModel;
 import service.RegisterService;
 import view.RegisterView;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 public class RegisterController implements IRegisterController {
 	private RegisterService registerService;
 	private RegisterView registerView;
@@ -29,6 +32,19 @@ public class RegisterController implements IRegisterController {
 	
 	public void notifyWarning() {
 		registerView.sendErrorNotification();
+	}
+	@Override
+	public void addUser() {
+		registerView.getAddUser().addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
+		
 	}
 
 

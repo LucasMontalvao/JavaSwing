@@ -1,11 +1,9 @@
 package view;
 
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.text.ParseException;
 
-import javax.swing.BorderFactory;
+
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JFrame;
@@ -17,7 +15,6 @@ import javax.swing.JTextField;
 import javax.swing.text.MaskFormatter;
 
 import controller.RegisterController;
-import model.RegisterModel;
 
 public class RegisterView extends JFrame implements IRegisterView{
 	private JPanel panel;
@@ -30,6 +27,10 @@ public class RegisterView extends JFrame implements IRegisterView{
 	private JFormattedTextField birthdayField;
 	private JPasswordField passwordField;
 	private JPasswordField confirmPasswordField;
+	private JButton addUser;
+	private JButton cancel;
+	
+
 	private RegisterController registerController;
 	
 	
@@ -74,8 +75,10 @@ public class RegisterView extends JFrame implements IRegisterView{
 		confirmPasswordField = createPasswordField(160, 210, 200, 25);
 		panel.add(confirmPasswordField);
 		
-		panel.add(createButton("Cancelar", 200, 240, 100, 25));
-		panel.add(createButton("Cadastrar", 300, 240, 100, 25));
+		cancel = createButton("Cancelar", 200, 240, 100, 25);
+		panel.add(cancel);
+		addUser = createButton("Cadastrar", 300, 240, 100, 25);
+		panel.add(addUser);
 		
 		add(panel);
 		pack();
@@ -116,30 +119,16 @@ public class RegisterView extends JFrame implements IRegisterView{
 		JButton button = new JButton();
 		button.setText(text);
 		button.setBounds(x, y, width, height);
-		
-		button.addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				try {
-					newRegisterAdded(RegisterView.this);
-				} catch (ParseException e1) {
-					e1.printStackTrace();
-				}
-			}
-			
-		});
 		return button;
 	}
 	@Override
-	public void newRegisterAdded(RegisterView form) throws ParseException {
-		registerController.addRegister(form);
+	public void newRegisterAdded() throws ParseException {
+		registerController.addRegister(this);
 	}
 	
 	public void sendErrorNotification() {
 		JOptionPane.showMessageDialog(panel, "Há um erro no formulário, "
 				+ "ou algum campo está vazio", "Inane warning", JOptionPane.WARNING_MESSAGE);
-		add(panel);
 	}
 
 	public JTextField getFisrtNameField() {
@@ -212,6 +201,21 @@ public class RegisterView extends JFrame implements IRegisterView{
 
 	public void setConfirmPasswordField(JPasswordField confirmPasswordField) {
 		this.confirmPasswordField = confirmPasswordField;
+	}
+	public JButton getAddUser() {
+		return addUser;
+	}
+
+	public void setAddUser(JButton addUser) {
+		this.addUser = addUser;
+	}
+
+	public JButton getCancel() {
+		return cancel;
+	}
+
+	public void setCancel(JButton cancel) {
+		this.cancel = cancel;
 	}
 	
 }
