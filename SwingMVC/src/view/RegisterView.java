@@ -14,6 +14,9 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.text.MaskFormatter;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import controller.RegisterController;
 
 public class RegisterView extends JFrame implements IRegisterView{
@@ -119,11 +122,25 @@ public class RegisterView extends JFrame implements IRegisterView{
 		JButton button = new JButton();
 		button.setText(text);
 		button.setBounds(x, y, width, height);
+		button.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				try {
+					if(button.getText() == "Cadastrar") {
+						newRegisterAdded(RegisterView.this);
+					}
+				}catch (Exception e1) {
+					e1.printStackTrace();
+				}
+			}
+			
+		});
 		return button;
 	}
 	@Override
-	public void newRegisterAdded() throws ParseException {
-		registerController.addRegister(this);
+	public void newRegisterAdded(RegisterView form) throws ParseException {
+		registerController.addRegister(form);
 	}
 	
 	public void sendErrorNotification() {

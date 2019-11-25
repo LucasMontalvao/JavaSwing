@@ -22,7 +22,6 @@ public class RegisterController implements IRegisterController {
 	@Override
 	public void notifyView(RegisterModel form) {
 		
-		
 	}
 	
 	public void addRegister(RegisterView form) throws ParseException {
@@ -34,16 +33,7 @@ public class RegisterController implements IRegisterController {
 		registerView.sendErrorNotification();
 	}
 	@Override
-	public void addUser() {
-		registerView.getAddUser().addActionListener(new ActionListener() {
-
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-		});
+	public void addUser(RegisterView form) {
 		
 	}
 

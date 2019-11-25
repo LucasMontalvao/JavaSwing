@@ -11,6 +11,8 @@ public class RegisterService implements IService {
 	private RegisterController registerController;
 	private RegisterModel registerModel;
 	
+	public RegisterService() {}
+	
 	public RegisterService(RegisterController registerController, RegisterModel registerModel) {
 		this.registerController = registerController;
 		this.registerModel = registerModel;
@@ -19,7 +21,6 @@ public class RegisterService implements IService {
 	@Override
 	public void notifyError() {
 		registerController.notifyWarning();
-		
 	}
 
 	@Override
