@@ -1,21 +1,18 @@
 package controller;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import model.RegisterModel;
-import service.RegisterService;
 import view.RegisterView;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class RegisterController implements IRegisterController {
-	private RegisterService registerService;
+	private RegisterModel registerModel;
 	private RegisterView registerView;
 	
-	public RegisterController() {}
-	public RegisterController(RegisterService registerService, RegisterView registerView) {
-		this.registerService = registerService;
+	public RegisterController(RegisterView registerView) {
+		this.registerModel = new RegisterModel();
 		this.registerView = registerView;
 	}
 	
@@ -24,8 +21,25 @@ public class RegisterController implements IRegisterController {
 		
 	}
 	
-	public void addRegister(RegisterView form) throws ParseException {
-		registerService.addUser(form);
+	public void addRegister() throws ParseException {
+		if(registerView.getFisrtNameField().getText() == null 	|| registerView.getLastNamefield().getText() == null ||
+				registerView.getCpfField().getText() == null 	|| registerView.getRgField().getText() == null 		 || 
+				registerView.getEmailField().getText() == null 	|| registerView.getBirthdayField().getText() == null ||
+				(registerView.getPasswordField().getText() == null || (registerView.getPasswordField().getText() != 
+						registerView.getConfirmPasswordField().getText()))) 
+		{
+			notifyWarning();
+		}
+		else {
+			registerModel.setFirstName(registerView.getFisrtNameField().getText());
+			registerModel.setLastName(registerView.getLastNamefield().getText());
+			registerModel.setCpf(registerView.getCpfField().getText());
+			registerModel.setRg(registerView.getRgField().getText());
+			registerModel.setEmail(registerView.getEmailField().getText());
+			registerModel.setBirthDate(new SimpleDateFormat("dd/MM/yyyy").parse(registerView.getBirthdayField().getText()));
+			registerModel.setUser(registerView.getUserField().getText());
+			registerModel.setPassword(registerView.getPasswordField().getText());
+		}
 		
 	}
 	

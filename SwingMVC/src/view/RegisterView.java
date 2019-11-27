@@ -38,6 +38,7 @@ public class RegisterView extends JFrame implements IRegisterView{
 	
 	
 	public RegisterView() {
+		registerController =  new RegisterController(this);
 		panel = new JPanel();
 		panel.setLayout(null); //se não desabilitar essa merda nada mais funciona
 		panel.setPreferredSize(new Dimension(600, 270));
@@ -128,7 +129,7 @@ public class RegisterView extends JFrame implements IRegisterView{
 			public void actionPerformed(ActionEvent e) {
 				try {
 					if(button.getText() == "Cadastrar") {
-						newRegisterAdded(RegisterView.this);
+						newRegisterAdded();
 					}
 				}catch (Exception e1) {
 					e1.printStackTrace();
@@ -139,8 +140,8 @@ public class RegisterView extends JFrame implements IRegisterView{
 		return button;
 	}
 	@Override
-	public void newRegisterAdded(RegisterView form) throws ParseException {
-		registerController.addRegister(form);
+	public void newRegisterAdded() throws ParseException {
+		registerController.addRegister();
 	}
 	
 	public void sendErrorNotification() {
