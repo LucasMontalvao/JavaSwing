@@ -127,13 +127,25 @@ public class RegisterView extends JFrame implements IRegisterView{
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				boolean error = false;
+				boolean isInserted = false;
 				try {
 					if(button.getText() == "Cadastrar") {
-						newRegisterAdded();
+						isInserted = newRegisterAdded();
+					}else {
+						System.exit(0);
 					}
 				}catch (Exception e1) {
 					e1.printStackTrace();
-					sendErrorNotification();
+					error = true;
+				}finally {
+					if(error) {
+						cleanAllTextFields();
+						sendErrorNotification();
+					}else if(isInserted) {
+						cleanAllTextFields();
+						sendConfirmMessageNotification();
+					}
 				}
 			}
 			
@@ -141,15 +153,38 @@ public class RegisterView extends JFrame implements IRegisterView{
 		return button;
 	}
 	@Override
-	public void newRegisterAdded() throws ParseException {
-		registerController.addRegister();
+	public boolean newRegisterAdded() throws ParseException {
+		return registerController.addRegister();
 	}
 	
 	public void sendErrorNotification() {
 		JOptionPane.showMessageDialog(panel, "Há um erro no formulário, "
 				+ "ou algum campo está vazio", "Inane warning", JOptionPane.WARNING_MESSAGE);
 	}
-
+	
+	public void sendConfirmMessageNotification() {
+		JOptionPane.showMessageDialog(panel, "Registro adicionado com sucesso!", 
+				"Aviso!", JOptionPane.INFORMATION_MESSAGE);
+	}
+	
+	public void cleanPasswordFields() {
+		getPasswordField().setText(null);
+		getConfirmPasswordField().setText(null);
+		JOptionPane.showMessageDialog(panel, "As senhas não são compativeis!", 
+				"Aviso!", JOptionPane.WARNING_MESSAGE);
+	}
+	
+	public void cleanAllTextFields() {
+		getFisrtNameField().setText(null);
+		getLastNamefield().setText(null);
+		getEmailField().setText(null);
+		getCpfField().setText(null);
+		getRgField().setText(null);
+		getBirthdayField().setText(null);
+		getUserField().setText(null);
+		getPasswordField().setText(null);
+		getConfirmPasswordField().setText(null);
+	}
 	public JTextField getFisrtNameField() {
 		return fisrtNameField;
 	}

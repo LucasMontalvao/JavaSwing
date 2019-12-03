@@ -33,7 +33,7 @@ public class RegisterService implements IService {
 		registerModel.setBirthDate(new SimpleDateFormat("dd/MM/yyyy").parse(form.getBirthdayField().getText()));
 		registerModel.setUser(form.getUserField().getText());
 		registerModel.setPassword(form.getPasswordField().getPassword());
-		invokeDAO(registerModel);
+		registerModel.addUser();
 	}
 	public void invokeDAO(RegisterModel registerModel) {
 		RegisterDAO registerDAO = new RegisterDAO();

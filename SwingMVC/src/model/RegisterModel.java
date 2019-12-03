@@ -29,6 +29,11 @@ public class RegisterModel {
 		setPassword(passWord);
 	}
 	
+	public void addUser() {
+		RegisterDAO registerDAO = new RegisterDAO();
+		registerDAO.addUser(this);
+	}
+	
 	public int getId() {
 		return id;
 	}
@@ -81,10 +86,8 @@ public class RegisterModel {
 	}
 	public String getPassword() {
 		String sPassword = "";
-		String car;
 		for(int i = 0; i < this.passWord.length; i++) {
-			car = (Character.toString(this.passWord[i]));
-			sPassword = sPassword.concat(car);
+			sPassword = sPassword.concat(Character.toString(this.passWord[i]));
 		}
 		return sPassword;
 	}

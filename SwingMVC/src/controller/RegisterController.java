@@ -21,26 +21,31 @@ public class RegisterController implements IRegisterController {
 		
 	}
 	
-	public void addRegister() throws ParseException {
+	public boolean addRegister() throws ParseException {
 		if(checkFirstNameField() 		||
 				checkLastNameField() 	|| 
 				checkCpfField()			|| 
 				checkRgField() 		 	|| 
 				checkEmailField()	 	|| 
-				checkBirthdayField()	||
-				checkPassWordField()) 
+				checkBirthdayField())	
 		{
 			notifyWarning();
 		}
-		else {
+		if(checkPassWordField()) {
 			addUser(registerView);
+			return true;
 		}
-		
+		return false;
+	}
+	
+	public void notifyValidationError() {
+		registerView.cleanPasswordFields();
 	}
 	
 	public void notifyWarning() {
 		registerView.sendErrorNotification();
 	}
+	
 	@Override
 	public void addUser(RegisterView form) throws ParseException {
 		registerService.addUser(form);
@@ -102,23 +107,37 @@ public class RegisterController implements IRegisterController {
 	}
 	public boolean checkPassWordField() {
 		boolean diffPasswords = false;
-		boolean check;
+		boolean check = false;
 		char[] senha = registerView.getPasswordField().getPassword();
 		char[] confirmPassword = registerView.getConfirmPasswordField().getPassword();
-		for(int i = 0; i < confirmPassword.length; i++) {
-			if(senha[i] == confirmPassword[i]) {
-				diffPasswords = false;
-			}else {
-				diffPasswords = true;
+		int size = checkPasswordSize(senha.length, confirmPassword.length);
+		try {
+			for(int i = 0; i < size; i++) {
+				if(senha[i] != confirmPassword[i]) {
+					diffPasswords = true;
+				}else {
+					diffPasswords = false;
+				}
 			}
+			if(senha != null && diffPasswords){
+				check = false;
+			}else {
+				check = true;
+			}
+			senha = null;
+			confirmPassword = null;
+		} catch (Exception e) {
+			notifyValidationError();
 		}
-		if(senha != null && diffPasswords){
-			check = true;
-		}else {
-			check = false;
-		}
-		senha = null;
-		confirmPassword = null;
 		return check;
+	}
+	public int checkPasswordSize(int passwordSize, int confirmPasswordSize) {
+		int size = 0;
+		if(confirmPasswordSize > passwordSize) {
+			size = confirmPasswordSize;
+		}else {
+			size = passwordSize;
+		}
+		return size;
 	}
 }
