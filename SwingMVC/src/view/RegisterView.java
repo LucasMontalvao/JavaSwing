@@ -133,6 +133,7 @@ public class RegisterView extends JFrame implements IRegisterView{
 					}
 				}catch (Exception e1) {
 					e1.printStackTrace();
+					sendErrorNotification();
 				}
 			}
 			
@@ -152,86 +153,66 @@ public class RegisterView extends JFrame implements IRegisterView{
 	public JTextField getFisrtNameField() {
 		return fisrtNameField;
 	}
-
 	public void setFisrtNameField(JTextField fisrtNameField) {
 		this.fisrtNameField = fisrtNameField;
 	}
-
 	public JTextField getLastNamefield() {
 		return lastNamefield;
 	}
-
 	public void setLastNamefield(JTextField lastNamefield) {
 		this.lastNamefield = lastNamefield;
 	}
-
 	public JTextField getEmailField() {
 		return emailField;
 	}
-
 	public void setEmailField(JTextField emailField) {
 		this.emailField = emailField;
 	}
-
 	public JTextField getUserField() {
 		return userField;
 	}
-
 	public void setUserField(JTextField userField) {
 		this.userField = userField;
 	}
-
 	public JFormattedTextField getCpfField() {
 		return cpfField;
 	}
-
 	public void setCpfField(JFormattedTextField cpfField) {
 		this.cpfField = cpfField;
 	}
-
 	public JFormattedTextField getRgField() {
 		return rgField;
 	}
-
 	public void setRgField(JFormattedTextField rgField) {
 		this.rgField = rgField;
 	}
-
 	public JFormattedTextField getBirthdayField() {
 		return birthdayField;
 	}
-
 	public void setBirthdayField(JFormattedTextField birthdayField) {
 		this.birthdayField = birthdayField;
 	}
-
 	public JPasswordField getPasswordField() {
 		return passwordField;
 	}
-
 	public void setPasswordField(JPasswordField passwordField) {
 		this.passwordField = passwordField;
 	}
-
 	public JPasswordField getConfirmPasswordField() {
 		return confirmPasswordField;
 	}
-
 	public void setConfirmPasswordField(JPasswordField confirmPasswordField) {
 		this.confirmPasswordField = confirmPasswordField;
 	}
 	public JButton getAddUser() {
 		return addUser;
 	}
-
 	public void setAddUser(JButton addUser) {
 		this.addUser = addUser;
 	}
-
 	public JButton getCancel() {
 		return cancel;
 	}
-
 	public void setCancel(JButton cancel) {
 		this.cancel = cancel;
 	}

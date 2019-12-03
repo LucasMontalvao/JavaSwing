@@ -1,19 +1,19 @@
 package controller;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-
 import model.RegisterModel;
+import service.RegisterService;
 import view.RegisterView;
 
 
 public class RegisterController implements IRegisterController {
-	private RegisterModel registerModel;
+	private RegisterService registerService;
 	private RegisterView registerView;
 	
+	public RegisterController() {};
 	public RegisterController(RegisterView registerView) {
-		this.registerModel = new RegisterModel();
 		this.registerView = registerView;
+		registerService = new RegisterService();
 	}
 	
 	@Override
@@ -22,23 +22,18 @@ public class RegisterController implements IRegisterController {
 	}
 	
 	public void addRegister() throws ParseException {
-		if(registerView.getFisrtNameField().getText() == null 	|| registerView.getLastNamefield().getText() == null ||
-				registerView.getCpfField().getText() == null 	|| registerView.getRgField().getText() == null 		 || 
-				registerView.getEmailField().getText() == null 	|| registerView.getBirthdayField().getText() == null ||
-				(registerView.getPasswordField().getText() == null || (registerView.getPasswordField().getText() != 
-						registerView.getConfirmPasswordField().getText()))) 
+		if(checkFirstNameField() 		||
+				checkLastNameField() 	|| 
+				checkCpfField()			|| 
+				checkRgField() 		 	|| 
+				checkEmailField()	 	|| 
+				checkBirthdayField()	||
+				checkPassWordField()) 
 		{
 			notifyWarning();
 		}
 		else {
-			registerModel.setFirstName(registerView.getFisrtNameField().getText());
-			registerModel.setLastName(registerView.getLastNamefield().getText());
-			registerModel.setCpf(registerView.getCpfField().getText());
-			registerModel.setRg(registerView.getRgField().getText());
-			registerModel.setEmail(registerView.getEmailField().getText());
-			registerModel.setBirthDate(new SimpleDateFormat("dd/MM/yyyy").parse(registerView.getBirthdayField().getText()));
-			registerModel.setUser(registerView.getUserField().getText());
-			registerModel.setPassword(registerView.getPasswordField().getText());
+			addUser(registerView);
 		}
 		
 	}
@@ -47,9 +42,83 @@ public class RegisterController implements IRegisterController {
 		registerView.sendErrorNotification();
 	}
 	@Override
-	public void addUser(RegisterView form) {
-		
+	public void addUser(RegisterView form) throws ParseException {
+		registerService.addUser(form);
 	}
-
-
+	
+	public boolean checkFirstNameField() {
+		boolean check;
+		if(registerView.getFisrtNameField().getText() == null) {
+			check = true;
+		}else {
+			check = false;
+		}
+		return check;
+	}
+	public boolean checkLastNameField() {
+		boolean check;
+		if(registerView.getLastNamefield().getText() == null) {
+			check = true;
+		}else {
+			check = false;
+		}
+		return check;
+	}
+	public boolean checkCpfField() {
+		boolean check;
+		if(registerView.getCpfField().getText() == null) {
+			check = true;
+		}else {
+			check = false;
+		}
+		return check;
+	}
+	public boolean checkRgField() {
+		boolean check;
+		if(registerView.getRgField().getText() == null) {
+			check = true;
+		}else {
+			check = false;
+		}
+		return check;
+	}
+	public boolean checkEmailField() {
+		boolean check;
+		if(registerView.getEmailField().getText() == null) {
+			check = true;
+		}else {
+			check = false;
+		}
+		return check;
+	}
+	public boolean checkBirthdayField() {
+		boolean check;
+		if(registerView.getBirthdayField().getText() == null) {
+			check = true;
+		}else {
+			check = false;
+		}
+		return check;
+	}
+	public boolean checkPassWordField() {
+		boolean diffPasswords = false;
+		boolean check;
+		char[] senha = registerView.getPasswordField().getPassword();
+		char[] confirmPassword = registerView.getConfirmPasswordField().getPassword();
+		for(int i = 0; i < confirmPassword.length; i++) {
+			if(senha[i] == confirmPassword[i]) {
+				diffPasswords = false;
+			}else {
+				diffPasswords = true;
+			}
+		}
+		if(senha != null && diffPasswords){
+			check = true;
+		}else {
+			check = false;
+		}
+		senha = null;
+		confirmPassword = null;
+		return check;
+	}
 }

@@ -1,5 +1,6 @@
 package model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class RegisterModel {
@@ -11,12 +12,12 @@ public class RegisterModel {
 	private String email;
 	private Date birthDate;
 	private String user;
-	private String password;
+	private char[] passWord;
 	
 	public RegisterModel() {}
 	
 	public RegisterModel(int id, String firstName, String lastName, String cpf,
-			String rg, String email, Date birthDate, String user, String password ) {
+			String rg, String email, Date birthDate, String user, char[] passWord ) {
 		setId(id);
 		setFirstName(firstName);
 		setLastName(lastName);
@@ -25,7 +26,7 @@ public class RegisterModel {
 		setEmail(email);
 		setBirthDate(birthDate);
 		setUser(user);
-		setPassword(password);
+		setPassword(passWord);
 	}
 	
 	public int getId() {
@@ -47,13 +48,13 @@ public class RegisterModel {
 		this.lastName = lastName;
 	}
 	public String getCpf() {
-		return cpf;
+		return this.cpf.replace(".", "").replace("-", "");
 	}
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
 	public String getRg() {
-		return rg;
+		return this.rg.replace(".", "");
 	}
 	public void setRg(String rg) {
 		this.rg = rg;
@@ -64,11 +65,13 @@ public class RegisterModel {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public Date getBirthDate() {
-		return birthDate;
+	public String getBirthDate() {
+	    SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");  
+	    String strDate= formatter.format(this.birthDate);
+		return strDate;
 	}
-	public void setBirthDate(Date birthDate) {
-		this.birthDate = birthDate;
+	public void setBirthDate(Date date) {
+		this.birthDate = date;
 	}
 	public String getUser() {
 		return user;
@@ -77,11 +80,16 @@ public class RegisterModel {
 		this.user = user;
 	}
 	public String getPassword() {
-		return password;
+		String sPassword = "";
+		String car;
+		for(int i = 0; i < this.passWord.length; i++) {
+			car = (Character.toString(this.passWord[i]));
+			sPassword = sPassword.concat(car);
+		}
+		return sPassword;
 	}
-	public void setPassword(String password) {
-		this.password = password;
+	public void setPassword(char[] cs) {
+		this.passWord = cs;
 	}
-	
 
 }
